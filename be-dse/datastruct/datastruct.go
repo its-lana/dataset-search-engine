@@ -51,6 +51,8 @@ type ResponseDelete struct {
 
 type ResponseGetAll struct {
 	Status  int        `json:"status"`
+	TotalData int     `json:"total data"`
+	TotalPage int     `json:"total page"`
 	Message string     `json:"message"`
 	Data    []Datasets `json:"data"`
 }

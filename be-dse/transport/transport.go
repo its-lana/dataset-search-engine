@@ -136,6 +136,10 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
+
+	var totalData int
+	var totalPage int
+
 	searchQuery := r.URL.Query().Get("search")
 	
 
@@ -150,9 +154,10 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
 		 return
 	 }
 
+	page := 0
     strPage := r.URL.Query().Get("page")
-    page := 1
     if strPage != "" {
+		page = 1
         page, err = strconv.Atoi(strPage)
         if err != nil || page < 1 {
             http.Error(w, "page query parameter is no valid number", http.StatusBadRequest)
@@ -170,7 +175,7 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
         }
     }
 
-	datasets, err := service.Get_All(searchQuery, sortQuery, filterQuery, page)
+	totalData, totalPage, datasets, err := service.Get_All(searchQuery, sortQuery, filterQuery, page)
 
 	if err != nil {
 		log.Fatalf("Tidak bisa mengambil data. %v", err)
@@ -178,6 +183,8 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
 
 	var response datastruct.ResponseGetAll
 	response.Status = 200
+	response.TotalData = totalData
+	response.TotalPage = totalPage
 	response.Message = "Success"
 	response.Data = datasets
 

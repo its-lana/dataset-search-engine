@@ -7,6 +7,8 @@ import (
 	"log"
 )
 
+
+
 func Create(datasets datastruct.Datasets) int64 {
 
 	db := config.CreateConnection()
@@ -87,7 +89,7 @@ func Delete(id int64) int64 {
 	return rowsAffected
 }
 
-func Get_All(search string, sort string, filter string, page int) ([]datastruct.Datasets, error) {
+func Get_All(search string, sort string, filter string, page int) (int, int, []datastruct.Datasets, error) {
 	db := config.CreateConnection()
 
 
@@ -119,6 +121,7 @@ func Get_All(search string, sort string, filter string, page int) ([]datastruct.
 		sqlStatement = fmt.Sprintf("%s LIMIT %d OFFSET %d" , sqlStatement, perPage, (page - 1) * perPage)
 	}
 
+
 	rows, err := db.Query(sqlStatement)
 
 	if err != nil {
@@ -141,7 +144,12 @@ func Get_All(search string, sort string, filter string, page int) ([]datastruct.
 
 		datasets = append(datasets, data)
 	}
-	return datasets, err
+
+	totalData := len(datasets)
+
+	totalPage := (totalData / 10) + 1
+
+	return totalData, totalPage, datasets, err
 }
 
 
