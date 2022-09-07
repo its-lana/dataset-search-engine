@@ -50,7 +50,6 @@ type ResponseDelete struct {
 }
 
 type ResponseGetAll struct {
-<<<<<<< HEAD
 	Status    int        `json:"status"`
 	TotalData int        `json:"total_data"`
 	TotalPage int        `json:"total_page"`
@@ -63,13 +62,6 @@ type ResponseGetTotal struct {
 	TotalData int    `json:"total_data"`
 	TotalPage int    `json:"total_page"`
 	Message   string `json:"message"`
-=======
-	Status  int        `json:"status"`
-	TotalData int     `json:"total data"`
-	TotalPage int     `json:"total page"`
-	Message string     `json:"message"`
-	Data    []Datasets `json:"data"`
->>>>>>> 7e99f55408fe3d9b4f6ea53e7ae5f36e43f1c6f0
 }
 
 type ResponseGet struct {

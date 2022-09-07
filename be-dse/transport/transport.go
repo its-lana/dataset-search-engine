@@ -129,10 +129,6 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
 	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	// w.Header().Set("Access-Control-Allow-Origin", "*")
 
-
-	var totalData int
-	var totalPage int
-
 	searchQuery := r.URL.Query().Get("search")
 
 	sortBy := r.URL.Query().Get("sortBy")
@@ -147,7 +143,6 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
 	}
 
 	page := 0
-<<<<<<< HEAD
 	strPage := r.URL.Query().Get("page")
 	if strPage != "" {
 		page = 1
@@ -177,40 +172,6 @@ func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
-=======
-    strPage := r.URL.Query().Get("page")
-    if strPage != "" {
-		page = 1
-        page, err = strconv.Atoi(strPage)
-        if err != nil || page < 1 {
-            http.Error(w, "page query parameter is no valid number", http.StatusBadRequest)
-            return
-        }
-    }
-
-	filter := r.URL.Query().Get("filter")
-	filterQuery := ""
-    if filter != "" {
-        filterQuery, err = logging.ValidateAndReturnFilterMap(filter)
-        if err != nil {
-            http.Error(w, err.Error(), http.StatusBadRequest)
-            return
-        }
-    }
-
-	totalData, totalPage, datasets, err := service.Get_All(searchQuery, sortQuery, filterQuery, page)
-
-	if err != nil {
-		log.Fatalf("Tidak bisa mengambil data. %v", err)
-	}
-
-	var response datastruct.ResponseGetAll
-	response.Status = 200
-	response.TotalData = totalData
-	response.TotalPage = totalPage
-	response.Message = "Success"
-	response.Data = datasets
->>>>>>> 7e99f55408fe3d9b4f6ea53e7ae5f36e43f1c6f0
 
 		totalData, totalPage, datasets, err := service.Get_tahun(tahunAwal, tahunAkhir)
 		if err != nil {

@@ -7,8 +7,6 @@ import (
 	"log"
 )
 
-
-
 func Create(datasets datastruct.Datasets) int64 {
 
 	db := config.CreateConnection()
@@ -115,7 +113,6 @@ func Get_All(search string, sort string, filter string, page int) (int, int, []d
 	if page >= 1 {
 		sqlStatement = fmt.Sprintf("%s LIMIT %d OFFSET %d", sqlStatement, perPage, (page-1)*perPage)
 	}
-
 
 	rows, err := db.Query(sqlStatement)
 
