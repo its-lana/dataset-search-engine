@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"strings"
 	"time"
+	"strconv"
 
 	"be-dse/datastruct"
 )
@@ -54,6 +55,24 @@ func ValidateAndReturnFilterMap(filter string) (string, error) {
 	}
 
 	return fmt.Sprintf("%s = '%s'", field, value), nil
+}
+
+func ValidateAndReturnTahun(filter string) (int64, int64, error) {
+    splits := strings.Split(filter, ".")
+	if len(splits) != 2 {
+		return 0, 0, errors.New("malformed filter query parameter, should be tahunAwal.tahunAkhir")
+	}
+
+	tahunAwal_, tahunAkhir_ := splits[0], splits[1]
+
+	tahunAwal, err := strconv.Atoi(tahunAwal_)
+	tahunAkhir, err := strconv.Atoi(tahunAkhir_)
+
+	if err != nil {
+		return 0,0, errors.New("unknown field in filter query parameter")
+	}
+
+	return int64(tahunAwal), int64(tahunAkhir), nil
 }
 
 const LOG_PREFIX_LOG string = "LOG"

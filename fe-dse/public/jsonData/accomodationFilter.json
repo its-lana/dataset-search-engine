@@ -1,0 +1,64 @@
+{
+  "general_facility_list": [
+    "Wifi",
+    "Swimming Pool",
+    "Parking",
+    "Restaurant",
+    "24-Hour Front Desk",
+    "Wheelchair Access",
+    "Fitness Center",
+    "Meeting Facilities",
+    "Elevator"
+  ],
+  "accomodationPreference": [
+    "All",
+    "Holiday Stays discount 30%",
+    "Extra Benefit",
+    "Refund Guarantee",
+    "All-star Accomocation",
+    "Vaccinated Incentives",
+    "Pay upon Check-in",
+    "Family-friendly",
+    "Villa",
+    "Apartment",
+    "Hostel",
+    "Xtra Deals",
+    "Resorts",
+    "Homestay",
+    "Lodging"
+  ],
+  "priceInput": [
+    "Rp0",
+    "Rp50.000",
+    "Rp100.000",
+    "Rp150.000",
+    "Rp200.000",
+    "Rp250.000",
+    "Rp300.000",
+    "Rp350.000",
+    "Rp400.000",
+    "Rp450.000",
+    "Rp500.000",
+    "Rp550.000",
+    "Rp600.000",
+    "Rp650.000",
+    "Rp700.000",
+    "Rp750.000"
+  ],
+  "accomodationTag": [
+    "Tanpa Sorting",
+    "Harga (termurah dulu)",
+    "Ulasan terbaik dan harga terendah",
+    "Hotel (terbaik)",
+    "Hotel terbaik dan harga murah",
+    "Pilihan terbaik keluarga (rekomendasi)"
+  ],
+  "accomodationStar": [
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+  ]
+}

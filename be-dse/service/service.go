@@ -13,17 +13,16 @@ func Create(datasets datastruct.Datasets) int64 {
 
 	//defer db.Close()
 
-
 	sqlStatement := `INSERT INTO datasets (kode_data, topik, grup, judul, 
 					tahun_awal_data, tahun_akhir_data, sumber_data, tautan_sumber_data, tautan_dataset_terkait,
 					organisasi_terkait, frekuensi_penerbitan, last_updated, jenis_data) VALUES ($1, $2, $3, $4,
 					$5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING kode_data`
 
 	err := db.QueryRow(sqlStatement, datasets.Kode_data, datasets.Topik, datasets.Grup, datasets.Judul,
-							datasets.TahunAwalData.Int64, datasets.TahunAkhirData.Int64, datasets.SumberData,
-							datasets.TautanSumberData, datasets.TautanDatasetTerkait,
-							datasets.OrganisasiTerkait.String, datasets.FrekuensiPenerbitan.String, datasets.LastUpdated.String,
-							datasets.JenisData).Scan(&datasets.Kode_data)
+		datasets.TahunAwalData.Int64, datasets.TahunAkhirData.Int64, datasets.SumberData,
+		datasets.TautanSumberData, datasets.TautanDatasetTerkait,
+		datasets.OrganisasiTerkait.String, datasets.FrekuensiPenerbitan.String, datasets.LastUpdated.String,
+		datasets.JenisData).Scan(&datasets.Kode_data)
 
 	if err != nil {
 		log.Fatalf("Tidak Bisa mengeksekusi query. %v", err)
@@ -44,10 +43,10 @@ func Update(id int64, datasets datastruct.Datasets) int64 {
 					frekuensi_penerbitan=$11, last_updated=$12, jenis_data=$13 WHERE kode_data=$1`
 
 	res, err := db.Exec(sqlStatement, id, datasets.Topik, datasets.Grup, datasets.Judul,
-						datasets.TahunAwalData.Int64, datasets.TahunAkhirData.Int64,
-						datasets.SumberData, datasets.TautanSumberData, datasets.TautanDatasetTerkait,
-						datasets.OrganisasiTerkait.String, datasets.FrekuensiPenerbitan.String,
-						datasets.LastUpdated.String, datasets.JenisData)
+		datasets.TahunAwalData.Int64, datasets.TahunAkhirData.Int64,
+		datasets.SumberData, datasets.TautanSumberData, datasets.TautanDatasetTerkait,
+		datasets.OrganisasiTerkait.String, datasets.FrekuensiPenerbitan.String,
+		datasets.LastUpdated.String, datasets.JenisData)
 
 	if err != nil {
 		log.Fatalf("Tidak bisa mengeksekusi query. %v", err)
@@ -61,8 +60,6 @@ func Update(id int64, datasets datastruct.Datasets) int64 {
 
 	return rowsAffected
 }
-
-
 
 func Delete(id int64) int64 {
 
@@ -87,36 +84,34 @@ func Delete(id int64) int64 {
 	return rowsAffected
 }
 
-func Get_All(search string, sort string, filter string, page int) ([]datastruct.Datasets, error) {
+func Get_All(search string, sort string, filter string, page int) (int, int, []datastruct.Datasets, error) {
 	db := config.CreateConnection()
-
 
 	defer db.Close()
 
 	var datasets []datastruct.Datasets
-	perPage := 9
-
+	perPage := 10
 
 	sqlStatement := `SELECT * FROM datasets`
 
-	if len(search) != 0{
-		sqlStatement = fmt.Sprintf("%s WHERE judul LIKE '%%%s%%'" , sqlStatement, search)
+	if len(search) != 0 {
+		sqlStatement = fmt.Sprintf("%s WHERE judul LIKE '%%%s%%'", sqlStatement, search)
 
 		if len(filter) != 0 {
-			sqlStatement = fmt.Sprintf("%s AND %s" , sqlStatement, filter)
+			sqlStatement = fmt.Sprintf("%s AND %s", sqlStatement, filter)
 		}
 	} else {
-			if len(filter) != 0 {
-				sqlStatement = fmt.Sprintf("%s WHERE %s" , sqlStatement, filter)
-			}
-	} 
-
-	if len(sort) != 0 {
-		sqlStatement = fmt.Sprintf("%s ORDER BY  %s" , sqlStatement, sort)
+		if len(filter) != 0 {
+			sqlStatement = fmt.Sprintf("%s WHERE %s", sqlStatement, filter)
+		}
 	}
 
-	if page >= 1{
-		sqlStatement = fmt.Sprintf("%s LIMIT %d OFFSET %d" , sqlStatement, perPage, (page - 1) * perPage)
+	if len(sort) != 0 {
+		sqlStatement = fmt.Sprintf("%s ORDER BY  %s", sqlStatement, sort)
+	}
+
+	if page >= 1 {
+		sqlStatement = fmt.Sprintf("%s LIMIT %d OFFSET %d", sqlStatement, perPage, (page-1)*perPage)
 	}
 
 	rows, err := db.Query(sqlStatement)
@@ -131,21 +126,57 @@ func Get_All(search string, sort string, filter string, page int) ([]datastruct.
 		var data datastruct.Datasets
 
 		err = rows.Scan(&data.Kode_data, &data.Topik, &data.Grup, &data.Judul, &data.TahunAwalData, &data.TahunAkhirData,
-						&data.SumberData, &data.TautanSumberData, &data.TautanDatasetTerkait,
-						&data.OrganisasiTerkait, &data.FrekuensiPenerbitan, &data.LastUpdated, &data.JenisData)
+			&data.SumberData, &data.TautanSumberData, &data.TautanDatasetTerkait,
+			&data.OrganisasiTerkait, &data.FrekuensiPenerbitan, &data.LastUpdated, &data.JenisData)
 
-		
 		if err != nil {
 			log.Fatalf("tidak bisa mengambil data. %v", err)
 		}
 
 		datasets = append(datasets, data)
 	}
-	return datasets, err
+
+	totalData := len(datasets)
+
+	totalPage := (totalData / 10) + 1
+
+	return totalData, totalPage, datasets, err
 }
 
+func Get_Total(search string, filter string) (int, int, error) {
+	db := config.CreateConnection()
 
-func Get_Data(id int64) (datastruct.Datasets) {
+	defer db.Close()
+
+	sqlStatement := `SELECT COUNT(*) FROM datasets`
+
+	if len(search) != 0 {
+		sqlStatement = fmt.Sprintf("%s WHERE judul LIKE '%%%s%%'", sqlStatement, search)
+
+		if len(filter) != 0 {
+			sqlStatement = fmt.Sprintf("%s AND %s", sqlStatement, filter)
+		}
+	} else {
+		if len(filter) != 0 {
+			sqlStatement = fmt.Sprintf("%s WHERE %s", sqlStatement, filter)
+		}
+	}
+
+	count := 0
+	err := db.QueryRow(sqlStatement).Scan(&count)
+
+	if err != nil {
+		log.Fatalf(" %s tidak bisa mengeksekusi query. %v", sqlStatement, err)
+	}
+
+	totalData := count
+
+	totalPage := (totalData / 10) + 1
+
+	return totalData, totalPage, err
+}
+
+func Get_Data(id int64) datastruct.Datasets {
 	db := config.CreateConnection()
 
 	defer db.Close()
@@ -156,10 +187,8 @@ func Get_Data(id int64) (datastruct.Datasets) {
 
 	err := db.QueryRow(sqlStatement, id).Scan(&datasets.Kode_data, &datasets.Topik, &datasets.Grup,
 		&datasets.Judul, &datasets.TahunAwalData, &datasets.TahunAkhirData,
-		&datasets.SumberData, &datasets.TautanSumberData, &datasets.TautanDatasetTerkait, 
+		&datasets.SumberData, &datasets.TautanSumberData, &datasets.TautanDatasetTerkait,
 		&datasets.OrganisasiTerkait, &datasets.FrekuensiPenerbitan, &datasets.LastUpdated, &datasets.JenisData)
-
-	
 
 	if err != nil {
 		log.Fatalf("tidak bisa mengeksekusi query. %v", err)
@@ -168,6 +197,64 @@ func Get_Data(id int64) (datastruct.Datasets) {
 	return datasets
 }
 
+func Get_tahun(tahunAwal int64, tahunAkhir int64) (int, int, []datastruct.Datasets, error) {
+	db := config.CreateConnection()
+
+	defer db.Close()
+
+	var datasets []datastruct.Datasets
+
+	sqlStatement := `SELECT * FROM datasets WHERE tahun_awal_data >= $1 AND tahun_akhir_data <= $2`
+
+	rows, err := db.Query(sqlStatement, tahunAwal, tahunAkhir)
+
+	if err != nil {
+		log.Fatalf("sql : %s tidak bisa mengeksekusi query. %v", sqlStatement, err)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var data datastruct.Datasets
+
+		err = rows.Scan(&data.Kode_data, &data.Topik, &data.Grup, &data.Judul, &data.TahunAwalData, &data.TahunAkhirData,
+			&data.SumberData, &data.TautanSumberData, &data.TautanDatasetTerkait,
+			&data.OrganisasiTerkait, &data.FrekuensiPenerbitan, &data.LastUpdated, &data.JenisData)
+
+		if err != nil {
+			log.Fatalf("tidak bisa mengambil data. %v", err)
+		}
+
+		datasets = append(datasets, data)
+	}
+
+	totalData := len(datasets)
+
+	totalPage := (totalData / 10) + 1
+
+	return totalData, totalPage, datasets, err
+}
+
+func Get_Tahun_Total(tahunAwal int64, tahunAkhir int64) (int, int, error) {
+	db := config.CreateConnection()
+
+	defer db.Close()
+
+	sqlStatement := `SELECT COUNT(*) FROM datasets WHERE tahun_awal_data >= $1 AND tahun_akhir_data <= $2`
+
+	count := 0
+	err := db.QueryRow(sqlStatement, tahunAwal, tahunAkhir).Scan(&count)
+
+	if err != nil {
+		log.Fatalf("tidak bisa mengeksekusi query. %v", err)
+	}
+
+	totalData := count
+
+	totalPage := (totalData / 10) + 1
+
+	return totalData, totalPage, err
+}
 
 // func ShowLike(id int64) (int64) {
 // 	db := config.CreateConnection()
@@ -179,7 +266,6 @@ func Get_Data(id int64) (datastruct.Datasets) {
 
 // 	sqlStatement = `SELECT COUNT(*) FROM menyukai WHERE feed_id=$1 AND status_like IS TRUE`
 
-
 // 	err := db.QueryRow(sqlStatement, id).Scan(&count)
 
 // 	if err != nil {
@@ -188,7 +274,6 @@ func Get_Data(id int64) (datastruct.Datasets) {
 
 // 	return count
 // }
-
 
 // func ShowSpecificLike(user_id int64,feed_id int64)(bool) {
 // 	db := config.CreateConnection()
@@ -200,7 +285,6 @@ func Get_Data(id int64) (datastruct.Datasets) {
 
 // 	sqlStatement = `SELECT status_like FROM menyukai WHERE user_id= $1 AND feed_id=$2`
 
-
 // 	err := db.QueryRow(sqlStatement, user_id,feed_id).Scan(&status_like)
 
 // 	if err != nil {
@@ -209,4 +293,3 @@ func Get_Data(id int64) (datastruct.Datasets) {
 
 // 	return status_like
 // }
-

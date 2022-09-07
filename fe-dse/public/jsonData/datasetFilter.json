@@ -1,0 +1,26 @@
+{
+	"sumberDataPreference": [
+		"All",
+		"BPS",
+		"Bappenas",
+		"Open Data Jakarta",
+		"Open Data Jabar",
+		"Open Data Bandung"
+	],
+	"topikPreference": [
+		"All",
+		"Ekonomi dan Industri",
+		"Infrastruktur",
+		"Sosial dan Kependudukan",
+		"Kesehatan",
+		"Pemuda dan Olahraga",
+		"Wisata dan Budaya",
+		"Pendidikan",
+		"Politik dan Pemerintahan",
+		"Komunikasi dan Informasi",
+		"Lingkungan Hidup dan SDA",
+		"Keagamaan",
+		"Pertahanan dan Keamanan",
+		"Perhubungan"
+	]
+}

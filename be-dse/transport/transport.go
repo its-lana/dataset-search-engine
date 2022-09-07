@@ -11,28 +11,22 @@ import (
 	"net/http"
 	"strconv"
 
-
 	"github.com/gorilla/mux"
-
 )
-
-
 
 func Insert_Dataset(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Acce ss-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	// w.Header().Set("Acce ss-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "POST")
+	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	var datasets datastruct.Datasets
-	
 
 	err := json.NewDecoder(r.Body).Decode(&datasets)
 	if err != nil {
 		log.Fatalf("Tidak bisa mendecode dari request body.  %v", err)
 	}
-	
 
 	datasets.LastUpdated.String = logging.GetDateTimeNowInString()
 	service.Create(datasets)
@@ -40,34 +34,33 @@ func Insert_Dataset(w http.ResponseWriter, r *http.Request) {
 	logging.Log(fmt.Sprintf("Datasets dengan id %d berhasil ditambahkan!", datasets.Kode_data))
 
 	res := datastruct.ResponsePost{
-		Kode_data: datasets.Kode_data,
-		Topik: datasets.Topik,
-		Grup : datasets.Grup,
-		Judul: datasets.Judul,
-		TahunAwalData: datasets.TahunAwalData.Int64,
-		TahunAkhirData: datasets.TahunAkhirData.Int64,
-		SumberData: datasets.SumberData,
-		TautanSumberData: datasets.TautanSumberData,
+		Kode_data:            datasets.Kode_data,
+		Topik:                datasets.Topik,
+		Grup:                 datasets.Grup,
+		Judul:                datasets.Judul,
+		TahunAwalData:        datasets.TahunAwalData.Int64,
+		TahunAkhirData:       datasets.TahunAkhirData.Int64,
+		SumberData:           datasets.SumberData,
+		TautanSumberData:     datasets.TautanSumberData,
 		TautanDatasetTerkait: datasets.TautanDatasetTerkait,
-		OrganisasiTerkait: datasets.OrganisasiTerkait.String,
-		FrekuensiPenerbitan: datasets.FrekuensiPenerbitan.String,
-		LastUpdated: datasets.LastUpdated.String,
-		JenisData: datasets.JenisData,
-		Message:  "Berhasil menambahkan dataset!",
+		OrganisasiTerkait:    datasets.OrganisasiTerkait.String,
+		FrekuensiPenerbitan:  datasets.FrekuensiPenerbitan.String,
+		LastUpdated:          datasets.LastUpdated.String,
+		JenisData:            datasets.JenisData,
+		Message:              "Berhasil menambahkan dataset!",
 	}
 
 	w.WriteHeader(201)
 	json.NewEncoder(w).Encode(res)
 }
 
-
 func Update_Dataset(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "PUT")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	
+	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "PUT")
+	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
 	params := mux.Vars(r)
 
 	id_, err := strconv.Atoi(params["id"])
@@ -77,8 +70,6 @@ func Update_Dataset(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var datasets datastruct.Datasets
-	
-	
 
 	err = json.NewDecoder(r.Body).Decode(&datasets)
 
@@ -92,21 +83,20 @@ func Update_Dataset(w http.ResponseWriter, r *http.Request) {
 	msg := fmt.Sprintf("Dataset telah berhasil diupdate. Status yang diupdate %v rows/record", updatedRows)
 
 	res := datastruct.ResponseUpdate{
-		Status: 200,
+		Status:  200,
 		Message: msg,
 	}
 
 	json.NewEncoder(w).Encode(res)
 }
 
-
 func Delete_Dataset(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	
+	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "DELETE")
+	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
 	params := mux.Vars(r)
 
 	id_, err := strconv.Atoi(params["id"])
@@ -119,81 +109,105 @@ func Delete_Dataset(w http.ResponseWriter, r *http.Request) {
 
 	err = json.NewDecoder(r.Body).Decode(&datasets)
 
+	if err != nil {
+		log.Fatalf("Error : %v", err)
+	}
+
 	deletedRows := service.Delete(int64(id_))
 
 	msg := fmt.Sprintf("Dataset berhasil dihapus. Status yang dihapus %v rows/record", deletedRows)
 
 	res := datastruct.ResponseDelete{
-		Status: 200,
+		Status:  200,
 		Message: msg,
 	}
 
 	json.NewEncoder(w).Encode(res)
 }
 
-
 func Get_All_Datasets(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	searchQuery := r.URL.Query().Get("search")
-	
 
-	 sortBy := r.URL.Query().Get("sortBy")
-	 if sortBy == "" {
-		 // id.asc is the default sort query
-		 sortBy = "judul.asc"
-	 }
-	 sortQuery, err := logging.ValidateAndReturnSortQuery(sortBy)
-	 if err != nil {
-		 http.Error(w, err.Error(), http.StatusBadRequest)
-		 return
-	 }
+	sortBy := r.URL.Query().Get("sortBy")
+	if sortBy == "" {
+		// id.asc is the default sort query
+		sortBy = "judul.asc"
+	}
+	sortQuery, err := logging.ValidateAndReturnSortQuery(sortBy)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-    strPage := r.URL.Query().Get("page")
-    page := 1
-    if strPage != "" {
-        page, err = strconv.Atoi(strPage)
-        if err != nil || page < 1 {
-            http.Error(w, "page query parameter is no valid number", http.StatusBadRequest)
-            return
-        }
-    }
+	page := 0
+	strPage := r.URL.Query().Get("page")
+	if strPage != "" {
+		page = 1
+		page, err = strconv.Atoi(strPage)
+		if err != nil || page < 1 {
+			http.Error(w, "page query parameter is no valid number", http.StatusBadRequest)
+			return
+		}
+	}
 
 	filter := r.URL.Query().Get("filter")
 	filterQuery := ""
-    if filter != "" {
-        filterQuery, err = logging.ValidateAndReturnFilterMap(filter)
-        if err != nil {
-            http.Error(w, err.Error(), http.StatusBadRequest)
-            return
-        }
-    }
-
-	datasets, err := service.Get_All(searchQuery, sortQuery, filterQuery, page)
-
-	if err != nil {
-		log.Fatalf("Tidak bisa mengambil data. %v", err)
+	if filter != "" {
+		filterQuery, err = logging.ValidateAndReturnFilterMap(filter)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
 	}
 
-	var response datastruct.ResponseGetAll
-	response.Status = 200
-	response.Message = "Success"
-	response.Data = datasets
+	tahun := r.URL.Query().Get("tahun")
+	var tahunAwal int64
+	var tahunAkhir int64
+	if tahun != "" {
+		tahunAwal, tahunAkhir, err = logging.ValidateAndReturnTahun(tahun)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
 
-	json.NewEncoder(w).Encode(response)
+		totalData, totalPage, datasets, err := service.Get_tahun(tahunAwal, tahunAkhir)
+		if err != nil {
+			log.Fatalf("Tidak bisa mengambil data. %v", err)
+		}
+
+		var response datastruct.ResponseGetAll
+		response.Status = 200
+		response.TotalData = totalData
+		response.TotalPage = totalPage
+		response.Message = "Success"
+		response.Data = datasets
+
+		json.NewEncoder(w).Encode(response)
+	} else {
+
+		totalData, totalPage, datasets, err := service.Get_All(searchQuery, sortQuery, filterQuery, page)
+		if err != nil {
+			log.Fatalf("Tidak bisa mengambil data. %v", err)
+		}
+
+		var response datastruct.ResponseGetAll
+		response.Status = 200
+		response.TotalData = totalData
+		response.TotalPage = totalPage
+		response.Message = "Success"
+		response.Data = datasets
+
+		json.NewEncoder(w).Encode(response)
+	}
 }
-
-
-
-
-
-
 
 func Get_Dataset(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	params := mux.Vars(r)
 
@@ -209,17 +223,70 @@ func Get_Dataset(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Tidak bisa mengambil data. %v", err)
 	}
 
-
 	logging.Log(fmt.Sprintf("%d menampilkan data like", id))
 
-	response:= datastruct.ResponseGet{
-		Status: 200,
+	response := datastruct.ResponseGet{
+		Status:  200,
 		Message: "Success",
-		Data: data_set,
+		Data:    data_set,
 	}
-	
+
 	w.WriteHeader(200)
 	json.NewEncoder(w).Encode(response)
+}
+
+func Get_Total_Data(w http.ResponseWriter, r *http.Request) {
+	// w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	searchQuery := r.URL.Query().Get("search")
+
+	filter := r.URL.Query().Get("filter")
+	filterQuery, err := logging.ValidateAndReturnFilterMap(filter)
+	if filter != "" {
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+	}
+
+	tahun := r.URL.Query().Get("tahun")
+	var tahunAwal int64
+	var tahunAkhir int64
+	if tahun != "" {
+		tahunAwal, tahunAkhir, err = logging.ValidateAndReturnTahun(tahun)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		totalData, totalPage, err := service.Get_Tahun_Total(tahunAwal, tahunAkhir)
+		if err != nil {
+			log.Fatalf("Tidak bisa mengambil data. %v", err)
+		}
+
+		var response datastruct.ResponseGetTotal
+		response.Status = 200
+		response.TotalData = totalData
+		response.TotalPage = totalPage
+		response.Message = "Success"
+
+		json.NewEncoder(w).Encode(response)
+	} else {
+
+		totalData, totalPage, err := service.Get_Total(searchQuery, filterQuery)
+		if err != nil {
+			log.Fatalf("Tidak bisa mengambil data. %v", err)
+		}
+
+		var response datastruct.ResponseGetTotal
+		response.Status = 200
+		response.TotalData = totalData
+		response.TotalPage = totalPage
+		response.Message = "Success"
+
+		json.NewEncoder(w).Encode(response)
+	}
 }
 
 // func TmplknSpecificLike(w http.ResponseWriter, r *http.Request) {
@@ -247,14 +314,12 @@ func Get_Dataset(w http.ResponseWriter, r *http.Request) {
 // 		log.Fatalf("Tidak bisa mengambil data. %v", err)
 // 	}
 
-
-
 // 	response5:= datastruct.Response5{
 // 		Status: 200,
 // 		Message: "Success",
 // 		LikeStatus: SpecificLike,
 // 	}
-	
+
 // 	w.WriteHeader(200)
 // 	json.NewEncoder(w).Encode(response5)
 // }
