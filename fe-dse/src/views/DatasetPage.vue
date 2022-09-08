@@ -54,6 +54,12 @@
 						</div>
 					</div>
 					<div class="item-card w-auto shadow-none mx-2 mb-7"></div>
+					<loading
+						:active.sync="isLoading"
+						:can-cancel="true"
+						:on-cancel="onCancel"
+						:is-full-page="fullPage"
+					></loading>
 					<ItemPortalCard v-if="pageData" :data="pageData" />
 				</div>
 			</div>
@@ -105,7 +111,9 @@ import PortalFilterCard from "../components/PortalFilterCard.vue";
 import ItemPortalCard from "../components/ItemPortalCard.vue";
 import Pagination from "../components/Pagination.vue";
 import filter from "../../public/jsonData/datasetFilter.json";
-import dummyDataset from "../../public/jsonData/dummyDataset1.json";
+// import dummyDataset from "../../public/jsonData/dummyDataset1.json";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default Vue.extend({
 	components: {
@@ -115,14 +123,17 @@ export default Vue.extend({
 		PortalFilterCard,
 		ItemPortalCard,
 		Pagination,
+		Loading,
 	},
 	name: "DatasetPage",
 	data() {
 		return {
 			isHidden: false,
+			isLoading: false,
+			fullPage: true,
 			datasetFilter: filter,
 			BE_API: "http://localhost:3000/api",
-			pageData: dummyDataset.data,
+			pageData: [{}],
 			totalDatasets: null,
 			totalPages: 100,
 			searchValue: {},
@@ -137,6 +148,11 @@ export default Vue.extend({
 	async created() {
 		try {
 			this.currentQuery = this.getQuery();
+			this.isLoading = true;
+			// simulate AJAX
+			setTimeout(() => {
+				this.isLoading = false;
+			}, 3000);
 			await this.getData(this.currentQuery);
 		} catch (error) {
 			console.log(error);
@@ -148,7 +164,12 @@ export default Vue.extend({
 			if (this.currentQuery !== this.prevQuery) {
 				console.log("masuk if apdet");
 				console.log(this.currentQuery + "===" + this.prevQuery);
-
+				this.prevQuery = this.currentQuery;
+				this.isLoading = true;
+				// simulate AJAX
+				setTimeout(() => {
+					this.isLoading = false;
+				}, 4000);
 				await this.getData(this.getQuery());
 			}
 		} catch (error) {
@@ -162,6 +183,9 @@ export default Vue.extend({
 				return uri[1];
 			}
 			return "page=1&sortBy=judul.asc";
+		},
+		onCancel() {
+			console.log("User cancelled the loader.");
 		},
 		async getData(query) {
 			try {
@@ -214,10 +238,10 @@ export default Vue.extend({
 			this.updateRoute();
 		},
 		updateRoute() {
-			console.log("ini topik: ");
+			console.log("ini di update route: ");
 			let filter = {};
 			let path = "";
-			console.log(this.filterValue.topikPrefer);
+			// console.log(this.filterValue.topikPrefer);
 
 			if (typeof this.filterValue.topikPrefer !== "undefined") {
 				if (this.filterValue.topikPrefer !== "All") {
@@ -255,10 +279,11 @@ export default Vue.extend({
 			}
 			path += "sortBy=" + this.sortBy;
 
-			console.log(path);
 			this.prevQuery = this.currentQuery;
 			this.currentQuery = path;
 			path = "/dataset?" + path;
+
+			console.log(this.currentQuery + "==?" + this.prevQuery);
 
 			this.$router.push({
 				path: path,

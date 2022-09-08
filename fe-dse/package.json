@@ -17,6 +17,7 @@
 		"tw-elements": "^1.0.0-alpha12",
 		"vue": "^2.6.11",
 		"vue-i18n": "^8.27.1",
+		"vue-loading-overlay": "3.0",
 		"vue-router": "^3.2.0",
 		"vuetify": "^2.4.0"
 	},
