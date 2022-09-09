@@ -47,12 +47,12 @@
 					>
 						<div class="text-black">Dataset</div>
 					</a>
-					<a
+					<!-- <a
 						href="/tentang"
 						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 text-black font-lato font-semibold rounded mx-3"
 					>
 						<div class="text-black">Tentang</div>
-					</a>
+					</a> -->
 					<!-- <a
 						href="/"
 						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 text-white font-lato font-semibold rounded mx-3"

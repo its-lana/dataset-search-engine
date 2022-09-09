@@ -19,14 +19,7 @@
 		<!-- Tahun -->
 		<div class="filter-border px-3 py-2">
 			<p class="mb3 color-navyblue font-semibold text-xl">Tahun Data</p>
-			<!-- With Radio Button Filter (Accomodation) -->
 			<div class="flex">
-				<!-- <input
-					v-model="tahunAwal"
-					v-on:keyup.enter="onChange"
-					class="search-card w-16 px-2 font-normal text-l ml-5 mr-5 border-4"
-					type="text"
-				/> -->
 				<input
 					v-model="tahunAwal"
 					@change="onChange()"
@@ -63,7 +56,7 @@
 				</label>
 			</div>
 		</div>
-		<!-- Type/Category -->
+		<!-- Preferensi Topik -->
 		<div class="filter-border px-3 py-2">
 			<p class="mb2 color-navyblue font-semibold text-xl">
 				Preferensi Topik

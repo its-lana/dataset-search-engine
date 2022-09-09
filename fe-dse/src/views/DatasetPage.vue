@@ -68,9 +68,7 @@
 				:totalPages="totalPages"
 				pageRange="5"
 			/>
-			<footer
-				class="lg:w-full bottom-0 bg-navyblue lg:px-5 lg:py-10"
-			></footer>
+			<Footer />
 		</div>
 	</div>
 </template>
@@ -114,6 +112,7 @@ import filter from "../../public/jsonData/datasetFilter.json";
 // import dummyDataset from "../../public/jsonData/dummyDataset1.json";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import Footer from "../components/Footer.vue";
 
 export default Vue.extend({
 	components: {
@@ -124,6 +123,7 @@ export default Vue.extend({
 		ItemPortalCard,
 		Pagination,
 		Loading,
+		Footer,
 	},
 	name: "DatasetPage",
 	data() {
@@ -158,24 +158,24 @@ export default Vue.extend({
 			console.log(error);
 		}
 	},
-	async updated() {
-		try {
-			console.log("ada updaet url dari : " + this.prevRoute);
-			if (this.currentQuery !== this.prevQuery) {
-				console.log("masuk if apdet");
-				console.log(this.currentQuery + "===" + this.prevQuery);
-				this.prevQuery = this.currentQuery;
-				this.isLoading = true;
-				// simulate AJAX
-				setTimeout(() => {
-					this.isLoading = false;
-				}, 4000);
-				await this.getData(this.getQuery());
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	},
+	// async updated() {
+	// 	try {
+	// 		console.log("ada updaet url dari : " + this.prevRoute);
+	// 		if (this.currentQuery !== this.prevQuery) {
+	// 			console.log("masuk if apdet");
+	// 			console.log(this.currentQuery + "===" + this.prevQuery);
+	// 			this.prevQuery = this.currentQuery;
+	// 			this.isLoading = true;
+	// 			// simulate AJAX
+	// 			setTimeout(() => {
+	// 				this.isLoading = false;
+	// 			}, 4000);
+	// 			await this.getData(this.getQuery());
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// },
 	methods: {
 		getQuery() {
 			let uri = window.location.href.split("?");
@@ -205,8 +205,8 @@ export default Vue.extend({
 				});
 
 				this.pageData = responseDataset.data.data;
-				this.totalDatasets = responseInfoData.data.total_data;
-				this.totalPages = responseInfoData.data.total_page;
+				this.totalDatasets = await responseInfoData.data.total_data;
+				this.totalPages = await responseInfoData.data.total_page;
 				console.log("ini total page : " + this.totalPages);
 				console.log(responseDataset.data.data);
 			} catch (error) {
@@ -236,6 +236,24 @@ export default Vue.extend({
 			console.log("ini di getfilter");
 
 			this.updateRoute();
+		},
+		async updatePage() {
+			try {
+				console.log("ada updaet page dari : " + this.prevQuery);
+				if (this.currentQuery !== this.prevQuery) {
+					console.log("masuk if apdet");
+					console.log(this.currentQuery + "===" + this.prevQuery);
+					this.prevQuery = this.currentQuery;
+					this.isLoading = true;
+					// simulate AJAX
+					setTimeout(() => {
+						this.isLoading = false;
+					}, 4000);
+					await this.getData(this.getQuery());
+				}
+			} catch (error) {
+				console.log(error);
+			}
 		},
 		updateRoute() {
 			console.log("ini di update route: ");
@@ -288,6 +306,7 @@ export default Vue.extend({
 			this.$router.push({
 				path: path,
 			});
+			this.updatePage();
 		},
 	},
 });

@@ -1,15 +1,35 @@
 <template>
 	<div>
-		<div class="partnership font-sora">
-			<Navbar :isTransparent="false" />
-			<BannerLandingPage />
-			<DataSourceCard />
-			<TopicGroupCard />
-			<Footer />
-			<!-- <footer
-				class="bottom-0 bg-navyblue mt-20"
-				style="height: 300px; background: #013d6b"
-			></footer> -->
+		<div
+			class="grid grid-cols-3 gap-0 mb-5 h-56 font-lato font-semibold text-3xl"
+		>
+			<div class="pl-10 banner pt-6">
+				<img
+					class="pl-5"
+					style="max-width: 60%; height: auto"
+					src="/img/statistik.png"
+				/>
+				<!-- <h1 class="my-4">Tahun : 2021 - 2022</h1> -->
+			</div>
+			<div
+				class="col-span-2 pl-8 pr-4 pt-10 text-center items-center justify-center"
+				style="background: #d7e3fc"
+			>
+				<h1 class="mb-4 dark-blue">
+					Selamat Datang di Website Pencarian Dataset!
+				</h1>
+				<h1 class="my-4 dark-blue">
+					Sekarang, pencarian data menjadi lebih mudah dan cepat
+				</h1>
+				<div
+					class="mx-auto bg-mulai border-4 pt-1 text-center items-center justify-center"
+					style="width: 400px; height: 50px"
+				>
+					<a href="/dataset" class="color-text-mulai"
+						>Mulai Pencarian Dataset >></a
+					>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -71,25 +91,12 @@
 
 <script>
 import Vue from "vue";
-// import axios from "axios";
-import Navbar from "../components/Navbar.vue";
-import BannerLandingPage from "../components/BannerLandingPage.vue";
-import DataSourceCard from "../components/DataSourceCard.vue";
-import TopicGroupCard from "../components/TopicGroupCard.vue";
-import Footer from "../components/Footer.vue";
 
 export default Vue.extend({
-	components: {
-		Navbar,
-		BannerLandingPage,
-		DataSourceCard,
-		TopicGroupCard,
-		Footer,
-	},
-	name: "LandingPage",
+	name: "BannerLandingPage",
 	data() {
 		return {
-			isHidden: false,
+			scrollPosition: 0,
 		};
 	},
 });
