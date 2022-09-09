@@ -6,10 +6,6 @@
 			class="item-card w-full shadow-none mx-2 mb-7"
 		>
 			<div class="flex flex-row h-fit">
-				<!-- <img
-					:src="item.image_url"
-					class="lg:h-64 lg:w-1/3 lg:rounded-l-lg xs:h-44 xs:w-full xs:rounded-t-lg object-cover"
-				/> -->
 				<div class="ml3 mb1 w-full flex flex-col">
 					<!-- Name -->
 					<a
@@ -112,8 +108,6 @@
 
 <script>
 import Vue from "vue";
-// import StarCard from "../partnership/StarCard.vue";
-// import { formatToIDR } from "../../utils/stringFormatter";
 
 export default Vue.extend({
 	// components: { StarCard },
@@ -143,25 +137,6 @@ export default Vue.extend({
 
 			return date.toLocaleString("en-US", { month: "short" });
 		},
-		// toWALink(contactNumber: any) {
-		// 	if (contactNumber) {
-		// 		let link: any = contactNumber;
-		// 		let tempArr: any = link.split("");
-		// 		if (link[0] == "0") {
-		// 			tempArr[0] = "";
-		// 			tempArr.unshift("62");
-		// 			link = tempArr.join("");
-		// 		}
-		// 		link =
-		// 			"https://wa.me/" +
-		// 			link.replace(
-		// 				/[^\w\f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]/gi,
-		// 				""
-		// 			);
-		// 		return link;
-		// 	}
-		// },
-		// formatToIDR,
 	},
 });
 </script>

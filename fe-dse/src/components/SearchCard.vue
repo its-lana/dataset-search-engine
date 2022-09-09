@@ -24,26 +24,6 @@
 				</div>
 			</form>
 		</div>
-		<!-- <div style="width: 90vw" class="font-lato ml-2 hidden-sm-and-up py-3">
-			<form
-				class="w-full email-input-box-long flex justify-center items-center px-3"
-				onsubmit="return false"
-			>
-				<input
-					id="search-card"
-					class="w-full font-normal text-base ml-5 mr-5 outline-none color-navyblue text-truncate"
-					type="text"
-					placeholder="Ciletuh Palabuhanratu Geopark"
-				/>
-				<button
-					type="submit"
-					@click="getSearchValue"
-					class="email-subscribe-btn-mobile text-white font-normal flex justify-center items-center text-xl"
-				>
-					<ion-icon name="search-sharp" class="text-white"></ion-icon>
-				</button>
-			</form>
-		</div> -->
 	</div>
 </template>
 

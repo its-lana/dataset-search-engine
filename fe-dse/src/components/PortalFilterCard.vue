@@ -128,9 +128,8 @@ export default Vue.extend({
 
 	methods: {
 		resetFilter() {
-			// this.$router.push({
-			// 	path: "/dataset",
-			// });
+			this.selectedTopik = "All";
+			this.selectedSumberData = "All";
 			this.tahunAwal = null;
 			this.tahunAkhir = null;
 			this.passFilterValue();
@@ -138,28 +137,11 @@ export default Vue.extend({
 		updateFilterData() {
 			this.isReset = false;
 			this.passFilterValue();
-			// console.log("abis ganti filter :");
-			// console.log(this.selectedTopik);
-			// console.log(this.selectedSumberData);
 		},
 		onChange() {
 			this.updateFilterData();
-			// console.log("abis di enter : ");
-			// console.log(this.tahunAwal);
-			// console.log(this.tahunAkhir);
 		},
-		// getSliderValue() {
-		// 	if (document.getElementById("slider1")) {
-		// 		let val1 = document.getElementById("slider1") as HTMLInputElement;
-		// 		this.sliderValTemp = Number(val1.value);
-		// 		this.sliderVal1 = 1000000 - Number(val1.value);
-		// 	}
-		// 	if (document.getElementById("slider2")) {
-		// 		let val2 = document.getElementById("slider2") as HTMLInputElement;
-		// 		this.sliderVal2 = Number(val2.value);
-		// 	}
-		// 	this.updateFilterData();
-		// },
+
 		passFilterValue() {
 			let dataSelected = {};
 			dataSelected.topikPrefer = this.selectedTopik;

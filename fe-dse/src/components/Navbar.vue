@@ -47,24 +47,6 @@
 					>
 						<div class="text-black">Dataset</div>
 					</a>
-					<!-- <a
-						href="/tentang"
-						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 text-black font-lato font-semibold rounded mx-3"
-					>
-						<div class="text-black">Tentang</div>
-					</a> -->
-					<!-- <a
-						href="/"
-						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 text-white font-lato font-semibold rounded mx-3"
-					>
-						<div class="text-white">Profil</div>
-						<div class="dropdown-content absolute hidden">
-							<a href="/ProfilPegawai">Pegawai</a>
-							<a href="/ProfilProdi">Prodi</a>
-							<a href="/ProfilJurusan">Jurusan</a>
-							<a href="/TracerStudy">Tracer Studi</a>
-						</div>
-					</a> -->
 				</nav>
 			</div>
 		</div>

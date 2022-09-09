@@ -58,15 +58,6 @@
 					name="chevron-forward-outline"
 				></ion-icon>
 			</button>
-			<!-- <a
-				href="#"
-				@click="goToPage(totalPages)"
-				:class="{
-					'pagination-item-active': currentPage === totalPages,
-					'pagination-item': currentPage !== totalPages,
-				}"
-				>Last</a
-			> -->
 		</nav>
 	</div>
 </template>
@@ -116,13 +107,6 @@ export default Vue.extend({
 			this.$emit("passedPageNumber", this.currentPage);
 		},
 
-		// updatePageData() {
-		// 	this.pageData = this.data.slice(
-		// 		(this.currentPage - 1) * this.perPage,
-		// 		this.currentPage * this.perPage
-		// 	);
-		// },
-
 		updateStartStop() {
 			if (this.currentPage <= Math.floor((this.pageRange - 1) / 2)) {
 				this.itemStart = 1;
@@ -166,15 +150,11 @@ export default Vue.extend({
 	},
 
 	created() {
-		// this.totalPages = Math.ceil(this.data.length / this.perPage);
 		this.updateStartStop();
 		for (let i = 1; i <= this.totalPages; i++) {
 			this.pageNumbers[i - 1] = i;
 		}
-		// this.pageData = this.data.slice(
-		// 	this.currentPage * 0 * this.perPage,
-		// 	this.currentPage * this.perPage
-		// );
+
 		this.passPageNumber();
 	},
 });

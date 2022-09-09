@@ -10,15 +10,7 @@
 						@passedSearchValue="getSearchValue"
 					/>
 					<!-- Filter Butoon -->
-					<div
-						style="width: 90vw; text-align: center"
-						class="bg-navyblue rounded ml-2 py-3 my-6 hidden-sm-and-up"
-						@click="isHidden = true"
-					>
-						<button class="font-normal text-white text-l">Filter</button>
-					</div>
 					<PortalFilterCard
-						v-if="doSearch"
 						:data="datasetFilter"
 						portal_name="Dataset"
 						@passedFilterValue="getFilterData"
