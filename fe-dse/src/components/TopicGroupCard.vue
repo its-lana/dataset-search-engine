@@ -1,8 +1,11 @@
 <template>
 	<div>
-		<div class="sumber-data mt-5 mb-10 font-lato font-semibold">
-			<h1 class="text-center text-3xl mt-16 mb-10">Topik</h1>
-			<div class="grid grid-cols-2 gap-4 mx-32 text-xl">
+		<div class="sumber-data mt-14 mb-14 font-poppins font-semibold">
+			<h1 class="text-center text-xl mt-20" style="color: #ff8b49">Topik</h1>
+			<h1 class="text-center text-4xl my-1 mb-16" style="color: #353d49">
+				Topik apa saja yang ada di sana?
+			</h1>
+			<div class="grid grid-cols-3 gap-4 mx-32 text-xl">
 				<h1
 					class="bg-topik1 topik-size dark-blue rounded-md items-center justify-center text-center pt-2 px-3 mx-1"
 				>
@@ -64,7 +67,7 @@
 					Pertahanan dan Keamanan
 				</h1>
 				<h1
-					class="bg-sumber-data2 col-span-2 topik-size dark-blue rounded-md items-center justify-center text-center pt-2 px-3 mx-auto"
+					class="bg-topik1 col-span-3 topik-size dark-blue rounded-md items-center justify-center text-center pt-2 px-3 mx-auto"
 					style="width: 600px"
 				>
 					Perhubungan
@@ -118,13 +121,15 @@
 	/* background: #5376ce; */
 }
 .bg-topik1 {
-	background: #53b2d0;
+	/* background: #53b2d0; */
+	background: #ffffff;
 }
 /* .bg-topik1:hover {
 	text-decoration-line: underline;
 } */
 .bg-topik2 {
-	background: #94b8d0;
+	/* background: #94b8d0; */
+	background: #ffffff;
 }
 /* .bg-topik2:hover {
 	text-decoration-line: underline;

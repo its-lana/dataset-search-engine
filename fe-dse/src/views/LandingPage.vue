@@ -4,6 +4,7 @@
 			<Navbar :isTransparent="false" />
 			<BannerLandingPage />
 			<DataSourceCard />
+			<div class="item-card w-auto shadow-none mx-32 mt-24"></div>
 			<TopicGroupCard />
 			<Footer />
 			<!-- <footer
@@ -15,6 +16,11 @@
 </template>
 
 <style scoped>
+.item-card {
+	border: 1px solid #eeeeee;
+	box-sizing: border-box;
+	border-radius: 16px;
+}
 .banner {
 	background: #abc3ff;
 }

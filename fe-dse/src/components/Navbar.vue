@@ -1,51 +1,30 @@
 <template>
 	<div>
-		<div class="absolute navbar-transparent z-10 w-full shadow-sm">
+		<div class="absolute navbar-transparent z-10 w-full shadow">
 			<!-- Navbar -->
-			<div class="flex items-center justify-between mr-14 px-4 py-1 sm:p-0">
+			<div class="flex items-center justify-between mr-14 px-4 py-4 sm:p-0">
 				<a href="/">
 					<img
-						class="img-logo ml-5"
+						class="img-logo ml-16"
 						style="max-width: 50%; height: auto"
 						src="/img/logo-gits.png"
 					/>
 				</a>
-				<div class="sm:hidden">
-					<button
-						@click="isOpen = !isOpen"
-						type="button"
-						class="block text-gray-500 hover:text-black focus:text-black focus:outline-none"
-					>
-						<svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-							<path
-								v-if="isOpen"
-								fill-rule="evenodd"
-								d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
-							/>
-							<path
-								v-if="!isOpen"
-								fill-rule="evenodd"
-								d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-							/>
-						</svg>
-					</button>
-				</div>
 
-				<nav
-					:class="isOpen ? 'block' : 'hidden'"
-					class="px-2 mr-4 sm:flex sm:p-0"
-				>
+				<nav class="px-2 mr-10 flex p-0">
 					<a
 						href="/"
-						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 text-black font-lato font-semibold rounded mx-3"
+						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 font-lato font-semibold rounded text-lg mx-4"
+						:class="{ underline: !isDatasetPage }"
 					>
-						<div class="text-black">Beranda</div>
+						<div class="">Beranda</div>
 					</a>
 					<a
 						href="/dataset"
-						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 text-black font-lato font-semibold rounded mx-3"
+						class="dropdown navlist relative inline-block block flex items-center justify-center p-3 font-lato font-semibold text-lg rounded mx-4"
+						:class="{ underline: isDatasetPage }"
 					>
-						<div class="text-black">Dataset</div>
+						<div class="">Dataset</div>
 					</a>
 				</nav>
 			</div>
@@ -57,17 +36,27 @@
 <style scoped>
 .navlist:hover {
 	/* background: rgba(2, 75, 117, 0.4); */
-	background: #7ba0ff;
+	/* background: #7ba0ff; */
+	background: #28a0f6;
+	color: #ffffff;
 	border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+.underline {
+	/* text-decoration-color: ; */
+	text-decoration-line: none;
+	border-bottom: 2px solid #28a0f6;
 }
 
 .navlist {
 	transition: background 0.2s ease-in-out;
+	color: #353d49;
 }
 
 .bg-header {
-	background: #c2d3ff;
-	height: 57px;
+	background: #ffffff;
+	height: 90px;
+	color: black;
 }
 
 .dropdown-content a:hover {
@@ -150,7 +139,15 @@ export default Vue.extend({
 			state: "close",
 			scrollPosition: 0,
 			article: [],
+			isDatasetPage: false,
 		};
+	},
+	created() {
+		if (this.$route.name == "DatasetPage") {
+			this.isDatasetPage = true;
+		} else {
+			this.isDatasetPage = false;
+		}
 	},
 });
 </script>

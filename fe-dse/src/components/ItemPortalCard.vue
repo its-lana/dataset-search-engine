@@ -20,7 +20,10 @@
 						<!-- Location -->
 						<div>
 							<!-- <ion-icon class="mr4" name="calendar-clear"></ion-icon> -->
-							<ion-icon class="mr4" name="calendar"></ion-icon>
+							<ion-icon
+								class="mr4 color-blue"
+								name="calendar"
+							></ion-icon>
 							<span
 								v-if="item.tahun_awal_data == item.tahun_akhir_data"
 								class="font-normal font-lato text-sm text-l my-1"
@@ -35,7 +38,10 @@
 							</span>
 						</div>
 						<div>
-							<ion-icon class="mr4" name="briefcase"></ion-icon>
+							<ion-icon
+								class="mr4 color-blue"
+								name="briefcase"
+							></ion-icon>
 							<a
 								:href="item.tautan_sumber_data"
 								style="color: #000000"
@@ -44,13 +50,19 @@
 							>
 						</div>
 						<div>
-							<ion-icon class="mr4" name="business-sharp"></ion-icon>
+							<ion-icon
+								class="mr4 color-blue"
+								name="business-sharp"
+							></ion-icon>
 							<span class="font-normal font-lato text-sm text-l my-1">
 								{{ item.organisasi_terkait }}
 							</span>
 						</div>
 						<div>
-							<ion-icon class="mr4" name="time-sharp"></ion-icon>
+							<ion-icon
+								class="mr4 color-blue"
+								name="time-sharp"
+							></ion-icon>
 							<span class="font-normal font-lato text-sm text-l">
 								{{ formatDate(item.last_updated) }}
 							</span>
@@ -76,6 +88,9 @@
 <style scoped>
 .color-green {
 	color: #32cd32;
+}
+.color-blue {
+	color: #013d6b;
 }
 .order-card {
 	border: 1px solid #eeeeee;

@@ -6,7 +6,7 @@
 			<div class="flex ml3 mr3 mt2">
 				<div id="filter-section" class="mr2">
 					<SearchCard
-						formTitle="Dataset Name"
+						formTitle="Keyword Dataset"
 						@passedSearchValue="getSearchValue"
 					/>
 					<!-- Filter Butoon -->
@@ -255,7 +255,7 @@ export default Vue.extend({
 
 			if (typeof this.filterValue.topikPrefer !== "undefined") {
 				if (this.filterValue.topikPrefer !== "All") {
-					filter.filter = "topik." + this.filterValue.topikPrefer;
+					filter.filter = "grup." + this.filterValue.topikPrefer;
 				}
 			}
 
@@ -266,7 +266,7 @@ export default Vue.extend({
 							"sumber_data." + this.filterValue.sumberDataPrefer;
 					} else {
 						filter.filter +=
-							"&sumber_data." + this.filterValue.sumberDataPrefer;
+							"|sumber_data." + this.filterValue.sumberDataPrefer;
 					}
 				}
 			}

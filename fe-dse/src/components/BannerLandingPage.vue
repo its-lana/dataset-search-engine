@@ -1,34 +1,25 @@
 <template>
 	<div>
 		<div
-			class="grid grid-cols-3 gap-0 mb-5 h-56 font-lato font-semibold text-3xl"
+			class="banner grid grid-cols-3 gap-0 mb-5 h-80 font-lato font-semibold text-4xl"
 		>
-			<div class="pl-10 banner pt-6">
-				<img
-					class="pl-5"
-					style="max-width: 60%; height: auto"
-					src="/img/statistik.png"
-				/>
-				<!-- <h1 class="my-4">Tahun : 2021 - 2022</h1> -->
-			</div>
 			<div
-				class="col-span-2 pl-8 pr-4 pt-10 text-center items-center justify-center"
-				style="background: #d7e3fc"
+				class="col-span-2 pl-8 pr-4 text-center my-auto items-center justify-center"
 			>
-				<h1 class="mb-4 dark-blue">
-					Selamat Datang di Website Pencarian Dataset!
-				</h1>
-				<h1 class="my-4 dark-blue">
-					Sekarang, pencarian data menjadi lebih mudah dan cepat
-				</h1>
+				<h1 class="mb-6">Selamat Datang di Website Pencarian Dataset!</h1>
+				<h1 class="my-6">Sekarang, pencarian data menjadi lebih cepat</h1>
 				<div
-					class="mx-auto bg-mulai border-4 pt-1 text-center items-center justify-center"
-					style="width: 400px; height: 50px"
+					class="mx-auto bg-mulai border-4 pt-1 text-center rounded-lg items-center justify-center"
+					style="width: 500px; height: 60px"
 				>
 					<a href="/dataset" class="color-text-mulai"
 						>Mulai Pencarian Dataset >></a
 					>
 				</div>
+			</div>
+			<div class="pr-10 pt-6">
+				<img class="pr-5" src="/img/statistik.jpg" />
+				<!-- <h1 class="my-4">Tahun : 2021 - 2022</h1> -->
 			</div>
 		</div>
 	</div>
@@ -36,13 +27,18 @@
 
 <style scoped>
 .banner {
-	background: #abc3ff;
+	/* background: #abc3ff; */
+	background: #28a0f6;
+	/* background: #ffffff; */
+	/* color: rgb(0, 0, 0); */
+	color: #ffffff;
 }
 .dark-blue {
 	color: #013d6b;
 }
 .color-text-mulai {
-	color: rgb(0, 0, 0);
+	/* color: rgb(0, 0, 0); */
+	color: #ffffff;
 }
 .sumber-data-size {
 	width: 150px;
@@ -64,14 +60,16 @@
 	text-decoration-line: underline;
 }
 .bg-mulai {
-	background: #ffee93;
+	/* background: #ffee93; */
 	border-style: solid;
-	border-color: #abc3ff;
+	/* border-color: #abc3ff; */
 	/* color: #013d6b; */
-	/* background: #5376ce; */
+	background: #ff8b49;
+	/* border-color: #ff8b49; */
 }
 .bg-mulai:hover {
-	background: #ffda07;
+	background: #f37c38;
+	/* border-color: #f37c38; */
 	/* color: white; */
 	/* background: #5376ce; */
 }

@@ -1,8 +1,8 @@
 <template>
-	<div class="font-lato search-container">
-		<div class="rounded py-5" style="background: #d7e3fc">
-			<div class="text-blue font-semibold text-xl ml5">Search</div>
-			<div class="text-blue text-lg mt-5 ml-5">{{ formTitle }} :</div>
+	<div class="font-poppins search-container">
+		<div class="rounded py-5 shadow" style="background: #013d6b">
+			<div class="text-white font-semibold text-2xl ml5">Search</div>
+			<div class="text-white text-lg mt-5 ml-5">{{ formTitle }} :</div>
 			<form class="flex flex-wrap mt3 w-full" onsubmit="return false">
 				<div class="email-input-box flex w-full items-center ml5 mr5">
 					<input
@@ -17,7 +17,7 @@
 					<button
 						type="submit"
 						@click="getSearchValue"
-						class="email-subscribe-btn w-11/12 text-blue font-normal text-base"
+						class="email-subscribe-btn w-11/12 text-blue font-semibold text-base"
 					>
 						Search..
 					</button>
@@ -31,42 +31,19 @@
 @media screen and (width) {
 }
 
-.email-subscribe-btn-long {
-	width: 165px;
-	height: 50px;
-	background: #00b4a7;
-	box-sizing: border-box;
-	border-radius: 10px;
-	transition: background 0.1s ease-in-out;
-}
-.email-subscribe-btn-mobile {
-	width: 80px;
-	height: 50px;
-	background: #00b4a7;
-	box-sizing: border-box;
-	border-radius: 10px;
-	transition: background 0.1s ease-in-out;
-}
 .email-subscribe-btn {
 	height: 40px;
-	background: #abc3ff;
+	background: #28a0f6;
 	box-sizing: border-box;
-	border: 0.3px solid #142e46;
+	border: 0.3px solid #28a0f6;
 	border-radius: 5px;
 	transition: background 0.1s ease-in-out;
 }
+/* .email-subscribe-btn:hover {
+	background: #f37c38;
+	color: #ffffff;
+} */
 
-.email-subscribe-btn:hover {
-	background: #abc3ff;
-}
-
-.email-input-box-long {
-	height: 64px;
-	box-sizing: border-box;
-	background: #ffffff;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-	border-radius: 10px;
-}
 .email-input-box {
 	width: 274px;
 	height: 48px;

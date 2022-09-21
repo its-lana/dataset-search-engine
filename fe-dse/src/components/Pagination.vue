@@ -64,15 +64,16 @@
 
 <style scoped>
 .pagination-item-active {
-	color: #00b4a7;
+	color: #013d6b;
 	pointer-events: none;
-	font-size: 20px;
+	font-size: 22px;
 	text-decoration: none;
 	margin: 0 4px;
 }
 
 .pagination-item:hover {
-	color: #00b4a7;
+	color: #013d6b;
+	font-size: 22px;
 }
 
 .pagination-item {
